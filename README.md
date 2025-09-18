@@ -11,3 +11,13 @@
 ## Сборка
 ```bash
 make
+
+## Запуск
+```bash
+make run
+
+## Файлы:
+- lfu.cpp - main program
+- tests.cpp - tests for a program
+- hash.h - cache implementation
+- Makefile - build file
