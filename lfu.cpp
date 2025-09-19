@@ -1,5 +1,6 @@
+#include <cassert>
+#include <cstddef>
 #include <iostream>
-#include <assert.h>
 
 #include "hash.h"
 #include "tests.h"
@@ -10,13 +11,19 @@ int main()
 {
     int sum_elem;
     size_t size_cache;
-    cin >> size_cache >> sum_elem;
+    cout << "Enter the cache size: ";
+    cin >> size_cache;
+
+    cout << "Enter the sum of the elements: ";
+    cin >> sum_elem;
 
     typedef int elem_t;
 
     cache_t<elem_t> cache(size_cache);
 
     int hits = 0;
+
+    cout << "Enter the elements: ";
 
     for (int i = 0; i < sum_elem; i++)
     {

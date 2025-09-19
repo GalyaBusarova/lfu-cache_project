@@ -1,5 +1,7 @@
 #include <iostream>
-#include <assert.h>
+#include <cassert>
+#include <vector>
+#include <cstddef>
 
 #include "hash.h"
 #include "tests.h"
