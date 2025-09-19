@@ -12,6 +12,7 @@
 ```bash
 make
 
+HEAD
 ## Запуск
 ```bash
 make run
@@ -21,3 +22,6 @@ make run
 - tests.cpp - tests for a program
 - hash.h - cache implementation
 - Makefile - build file
+=======
+
+>>>>>>> b4a1b63 (Обновила README.md с описанием проекта)
