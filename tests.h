@@ -1,3 +1,7 @@
+#include <string>
+#include <vector>
+#include <cstddef>
+
 #pragma once
 
 struct LFUTestCase {

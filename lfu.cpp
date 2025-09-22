@@ -1,9 +1,9 @@
 #include <cassert>
-#include <cstddef>
 #include <iostream>
 
 #include "hash.h"
 #include "tests.h"
+
 
 using namespace std;
 
@@ -29,6 +29,7 @@ int main()
     {
         hash_table_elem<elem_t> elem;
         cin >> elem.key;
+        
         assert(cin.good());
 
         if (cache.check_to_hit(elem.key))
@@ -37,7 +38,7 @@ int main()
         }
     }
 
-    cout << hits << "\n";
+    cout << "LFU - кэширование: " << hits << "попадания" << "\n";
 
     run_all_lfu_tests();
 }
