@@ -1,9 +1,11 @@
 #pragma once
 
-// tests
-void test1_lfu();
-void test2_lfu();
-void test3_lfu();
-void test4_lfu();
-void test5_lfu();
-void test6_lfu();
+struct LFUTestCase {
+    std::string name;
+    size_t cache_size;
+    std::vector<int> elements;
+    int expected_hits;
+};
+
+void run_lfu_test(const LFUTestCase& test_case);
+void run_all_lfu_tests();

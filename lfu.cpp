@@ -39,11 +39,6 @@ int main()
 
     cout << hits << "\n";
 
-    test1_lfu();
-    test2_lfu();
-    test3_lfu();
-    test4_lfu();
-    test5_lfu();
-    test6_lfu();
+    run_all_lfu_tests();
 }
 
