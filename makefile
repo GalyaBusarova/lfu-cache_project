@@ -1,16 +1,23 @@
 CXX = g++
-CXXFLAGS = -std=c++11 -Wall
+CXXFLAGS = -std=c++17 -Wall
 TARGET = lfu
+TEST_TARGET = lfu_test
 
 all: $(TARGET)
 
-$(TARGET): lfu.cpp tests.cpp
-	$(CXX) $(CXXFLAGS) lfu.cpp tests.cpp -o $(TARGET)
+$(TARGET): lfu.cpp
+	$(CXX) $(CXXFLAGS) lfu.cpp -o $(TARGET)
+
+$(TEST_TARGET): tests.cpp
+	$(CXX) $(CXXFLAGS) tests.cpp -o $(TEST_TARGET)
 
 run: $(TARGET)
 	./$(TARGET)
 
-clean:
-	rm -f $(TARGET)
+test: $(TEST_TARGET)
+	./$(TEST_TARGET)
 
-.PHONY: all run clean
+clean:
+	rm -f $(TARGET) $(TEST_TARGET)
+
+.PHONY: all run test clean

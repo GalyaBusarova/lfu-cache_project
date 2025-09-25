@@ -1,8 +1,8 @@
+#pragma once
+
 #include <list>
 #include <unordered_map>
 #include <cstddef>
-
-#pragma once
 
 // cache element structure
 template <typename T, typename KeyT = int> 
