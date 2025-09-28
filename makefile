@@ -14,6 +14,11 @@ $(TEST_TARGET): tests.cpp
 run: $(TARGET)
 	./$(TARGET)
 
+run-file: $(TARGET)
+	@echo "Запуск на файле: $(TEST)"
+	./$(TARGET) < $(TEST)
+
+
 test: $(TEST_TARGET)
 	./$(TEST_TARGET)
 
