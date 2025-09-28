@@ -6,6 +6,7 @@
 #include <cstddef>
 #include <climits>
 #include <algorithm>
+#include <queue>
 
 
 template <typename T, typename KeyT = int>
@@ -77,45 +78,63 @@ int do_ideal_cache(const ideal_cache<T, KeyT>& id_cache)
     
     int id_hits = 0;
     std::unordered_map<T, int> cache; 
+    std::priority_queue<std::pair<KeyT, T>> prior_q; // используем пары ключ - значение, они отсортированы по убыванию ключа
 
     for (int i = 0; i < static_cast<int>(future_requests.size()); i++)
     {
         T cur_req = future_requests[i];
+        int next_use = id_cache.get_next_index(cur_req, i);
+
+        if (cache.find(cur_req) == cache.end() && next_use == INT_MAX)
+        {
+            continue;
+        }
 
         if (cache.find(cur_req) != cache.end())
         {
-            cache[cur_req] = id_cache.get_next_index(cur_req, i);
+            cache[cur_req] = next_use;
+            prior_q.push({next_use, cur_req});
             id_hits++;
             continue;
         }
 
         if (cache.size() < id_cache.get_size_cache())
         {
-            cache[cur_req] = id_cache.get_next_index(cur_req, i);
+            cache[cur_req] = next_use;
+            prior_q.push({next_use, cur_req});
         }
+
         else
         {
-            T key_to_remove = cur_req; 
-            int farthest_ind = -1;
+            T elem_to_remove = cur_req;
+            bool found_inf = false;
 
-            for (const auto& [page, next_use] : cache)
+            if (found_inf)
             {
-                if (next_use > farthest_ind)
+                cache.erase(elem_to_remove);
+            }
+
+            while(!prior_q.empty())
+            {
+                auto [ind, elem] = prior_q.top();
+                prior_q.pop();
+
+                if (cache.find(elem) == cache.end())
                 {
-                    farthest_ind = next_use;
-                    key_to_remove = page;
+                    continue;
                 }
+
+                if (cache[elem] != ind)
+                {
+                    continue;
+                }
+
+                cache.erase(elem);
+                break;
             }
 
-            cache[cur_req] = id_cache.get_next_index(cur_req, i);
-
-            if (cache[cur_req] == INT_MAX)
-            {
-                cache.erase(cur_req);
-                continue;
-            }
-
-            cache.erase(key_to_remove);
+            cache[cur_req] = next_use;
+            prior_q.push({next_use, cur_req});
         }
     }
 
