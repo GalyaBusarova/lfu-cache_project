@@ -107,10 +107,18 @@ int do_ideal_cache(const ideal_cache<T, KeyT>& id_cache)
                 }
             }
 
-            cache.erase(key_to_remove);
             cache[cur_req] = id_cache.get_next_index(cur_req, i);
+
+            if (cache[cur_req] == INT_MAX)
+            {
+                cache.erase(cur_req);
+                continue;
+            }
+
+            cache.erase(key_to_remove);
         }
     }
 
     return id_hits;
 }
+
